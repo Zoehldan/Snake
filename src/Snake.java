@@ -1,13 +1,36 @@
 import java.awt.*;
 import java.util.ArrayList;
 public class Snake {
-    ArrayList<Snake> snake=new ArrayList<Snake>();
-    int x, y, dx,dy;
+    int[] head={0, 0};
+    ArrayList<Integer> tail=new ArrayList<Integer>();
+    int x, y, dx, dy;
     final int WIDTH=10;
     int speed=10, direction=3;
     public Snake(Board board){
-        x=board.getWidth()/4;
-        y=board.getHeight()/2;
+        head[0]=board.getWidth()/4;
+        head[1]=board.getHeight()/2;
+        tail.add(head[0]-WIDTH);
+        tail.add(head[1]);
+        tail.add(getNum(tail.size()-2)-10);
+        tail.add(getNum(tail.size()-2));
+    }
+    public void addLength(){
+        if(dx==10){
+            tail.add(getNum(tail.size()-2)-10);
+            tail.add(getNum(tail.size()-2));
+        }else
+        if(dx==10){
+            tail.add(getNum(tail.size()-2)+10);
+            tail.add(getNum(tail.size()-2));
+        }else
+        if(dy==10){
+            tail.add(getNum(tail.size()-2)-10);
+            tail.add(getNum(tail.size()-2)-10);
+        }else
+        if(dy==-10){
+            tail.add(getNum(tail.size()-2));
+            tail.add(getNum(tail.size()-2)+10);
+        }else
     }
     public void turnRight(){
         if(dx!=-10){
@@ -35,16 +58,24 @@ public class Snake {
         }
     }
     public void paint(Graphics g){
-        g.setColor(Color.BLACK);
-        g.fillRect(x, y, WIDTH, WIDTH);
+        for(int i=0; i<tail.size(); i+=2) {
+            if(i==0){
+                g.setColor(Color.RED);
+                g.fillRect(head[0], head[1], WIDTH, WIDTH);
+            }else if(i>0){
+                System.out.println("run");
+                g.setColor(Color.BLACK);
+                g.fillRect(tail.get(i), tail.get(i+1), WIDTH, WIDTH);
+            }
+        }
     }
-    public int getX(){
-        return x;
-    }
-    public int getY(){
-        return y;
+    public int getNum(int index){
+        return tail.get(index);
     }
     public int getWIDTH(){
         return WIDTH;
+    }
+    public Rectangle getBounds(){
+        return new Rectangle(head[0], head[1], WIDTH, WIDTH);
     }
 }

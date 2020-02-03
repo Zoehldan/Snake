@@ -21,11 +21,25 @@ public class Board extends JPanel implements ActionListener {
         food=new Food(this);
     }
     public void checkCollisions(){
-
+        if(snake.getBounds().intersects(food.getBounds())){
+            snake.addLength();
+            food.eaten(this);
+        }
     }
     public void actionPerformed(ActionEvent e){
         checkCollisions();
-
+        if(game.isRightPressed()==true){
+            snake.turnRight();
+        }
+        if(game.isLeftPressed()==true){
+            snake.turnLeft();
+        }
+        if(game.isUpPressed()==true){
+            snake.turnUp();
+        }
+        if(game.isDownPressed()==true){
+            snake.turnDown();
+        }
         repaint();
     }
     public void paintComponent(Graphics g){
