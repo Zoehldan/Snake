@@ -7,6 +7,7 @@ public class Board extends JPanel implements ActionListener {
     Snake snake;
     Food food;
     Timer timer;
+    Long timeDelay;
     Game game;
     int score=0, foodEaten=0;
     public Board(Game game){
@@ -19,15 +20,27 @@ public class Board extends JPanel implements ActionListener {
     public void setup(){
         snake=new Snake(this);
         food=new Food(this);
-    }
+        timeDelay=System.currentTimeMillis();
+    }/*
     public void checkCollisions(){
         if(snake.getBounds().intersects(food.getBounds())){
             snake.addLength();
             food.eaten(this);
         }
-    }
+    }*/
+    @Override
     public void actionPerformed(ActionEvent e){
-        checkCollisions();
+        long currentTime=System.currentTimeMillis();
+        /*checkCollisions();
+        if(snake.isSkipTailMove()==false){
+            for(int i=snake.tailLength(); i>0; i--){
+                snake.moveTail(i);
+            }
+        }*/
+        if(currentTime-timeDelay>=1000){
+            snake.move();
+            timeDelay=System.currentTimeMillis();
+        }
         if(game.isRightPressed()==true){
             snake.turnRight();
         }
@@ -46,7 +59,7 @@ public class Board extends JPanel implements ActionListener {
         super.paintComponent(g);
         g.setColor(Color.BLACK);
         g.setFont(new Font("Arial", Font.BOLD, 36));
-        printSimpleString("SCORE: "+score, getWidth(), 0, 0, g);
+        printSimpleString("SCORE: "+score, getWidth(), -400, 40, g);
         snake.paint(g);
         food.paint(g);
     }
