@@ -14,29 +14,25 @@ public class Board extends JPanel implements ActionListener {
         this.game=game;
         setPreferredSize(new Dimension(1000, 800));
         setBackground(Color.GRAY);
-        timer=new Timer(1000/2, this);
+        timer=new Timer(1000/30, this);
         timer.start();
     }
     public void setup(){
         snake=new Snake(this);
         food=new Food(this);
         timeDelay=System.currentTimeMillis();
-    }/*
+    }
     public void checkCollisions(){
-        if(snake.getBounds().intersects(food.getBounds())){
+        if(snake.getHead()==food.getCoord()){
             snake.addLength();
             food.eaten(this);
+            score+=10;
         }
-    }*/
+    }
     @Override
     public void actionPerformed(ActionEvent e){
         long currentTime=System.currentTimeMillis();
-        /*checkCollisions();
-        if(snake.isSkipTailMove()==false){
-            for(int i=snake.tailLength(); i>0; i--){
-                snake.moveTail(i);
-            }
-        }*/
+        checkCollisions();
         if(currentTime-timeDelay>=1000){
             snake.move();
             timeDelay=System.currentTimeMillis();

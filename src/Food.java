@@ -3,21 +3,24 @@ import org.w3c.dom.css.Rect;
 import java.awt.*;
 
 public class Food {
-    int x=0, y=0, range=5;
+    int[] food={1, 1};
     final int WIDTH =10;
     public Food(Board board){
-        x=((int)((Math.random()*board.getWidth())-WIDTH)/10)*10;
-        y=((int)((Math.random()*board.getHeight())-WIDTH)/10)*10;
+        food[0]=((int)((Math.random()*board.getWidth())-WIDTH)/10)*10;
+        food[1]=((int)((Math.random()*board.getHeight())-WIDTH)/10)*10;
     }
     public Rectangle getBounds(){
-        return new Rectangle(x, y, WIDTH, WIDTH);
+        return new Rectangle(food[0], food[1], WIDTH, WIDTH);
+    }
+    public int[] getCoord(){
+        return food;
     }
     public void paint(Graphics g){
         g.setColor(Color.GREEN);
-        g.fillRect(x, y, WIDTH, WIDTH);
+        g.fillRect(food[0], food[1], WIDTH, WIDTH);
     }
     public void eaten(Board board){
-        x=((int)((Math.random()*board.getWidth())-WIDTH)/10)*10;
-        y=((int)((Math.random()*board.getHeight())-WIDTH)/10)*10;
+        food[0]=((int)((Math.random()*board.getWidth())-WIDTH)/10)*10;
+        food[1]=((int)((Math.random()*board.getHeight())-WIDTH)/10)*10;
     }
 }
