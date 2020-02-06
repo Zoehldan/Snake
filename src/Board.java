@@ -9,10 +9,10 @@ public class Board extends JPanel implements ActionListener {
     Timer timer;
     Long timeDelay;
     Game game;
-    int score=0, foodEaten=0;
+    int score=0;
     public Board(Game game){
         this.game=game;
-        setPreferredSize(new Dimension(1000, 800));
+        setPreferredSize(new Dimension(400, 400));
         setBackground(Color.GRAY);
         timer=new Timer(1000/30, this);
         timer.start();
@@ -23,7 +23,7 @@ public class Board extends JPanel implements ActionListener {
         timeDelay=System.currentTimeMillis();
     }
     public void checkCollisions(){
-        if(snake.getHead()==food.getCoord()){
+        if(snake.getHead()[0]==food.getCoord()[0]&&snake.getHead()[1]==food.getCoord()[1]){
             snake.addLength();
             food.eaten(this);
             score+=10;
@@ -33,20 +33,20 @@ public class Board extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e){
         long currentTime=System.currentTimeMillis();
         checkCollisions();
-        if(currentTime-timeDelay>=1000){
-            snake.move();
+        if(currentTime-timeDelay>=150){
+            snake.move(this);
             timeDelay=System.currentTimeMillis();
         }
-        if(game.isRightPressed()==true){
+        if(game.isRightPressed()){
             snake.turnRight();
         }
-        if(game.isLeftPressed()==true){
+        if(game.isLeftPressed()){
             snake.turnLeft();
         }
-        if(game.isUpPressed()==true){
+        if(game.isUpPressed()){
             snake.turnUp();
         }
-        if(game.isDownPressed()==true){
+        if(game.isDownPressed()){
             snake.turnDown();
         }
         repaint();
