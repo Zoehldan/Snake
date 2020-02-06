@@ -4,7 +4,7 @@ public class Snake {
     int[] head={0, 0};
     ArrayList<Integer> tail=new ArrayList<Integer>();
     final int WIDTH=10;
-    int direction=3;
+    int direction=3, turn;
     boolean skipTailMove=false, started=false;
     public Snake(Board board){
         head[0]=board.getWidth()/4;
@@ -15,8 +15,9 @@ public class Snake {
         tail.add(getNum(tail.size()-2));
     }
     public void move(){
+        direction=turn;
         if(skipTailMove==false) {
-            for(int i=tail.size()-1; i>0; i--){
+            for(int i=tail.size()-1; i>=0; i--){
                 if(i>1){
                     tail.set(i, tail.get(i-2));
                 }else if(i<=1){
@@ -42,22 +43,22 @@ public class Snake {
     }
     public void turnRight(){
         if(direction!=9){
-            direction=3;
+            turn=3;
         }
     }
     public void turnLeft(){
         if(direction!=3){
-            direction=9;
+            turn=9;
         }
     }
     public void turnUp(){
         if(direction!=6){
-            direction=12;
+            turn=12;
         }
     }
     public void turnDown(){
         if(direction!=12){
-            direction=6;
+            turn=6;
         }
     }
     public void paint(Graphics g){
@@ -84,11 +85,5 @@ public class Snake {
     }
     public Rectangle getBounds(){
         return new Rectangle(head[0], head[1], WIDTH, WIDTH);
-    }
-    public boolean isSkipTailMove() {
-        return skipTailMove;
-    }
-    public void resetTailMove(){
-        skipTailMove=false;
     }
 }
