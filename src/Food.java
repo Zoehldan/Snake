@@ -1,4 +1,3 @@
-import org.w3c.dom.css.Rect;
 import java.awt.*;
 public class Food {
     int[] food={1, 1};

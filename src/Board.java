@@ -12,7 +12,7 @@ public class Board extends JPanel implements ActionListener {
     int score=0;
     public Board(Game game){
         this.game=game;
-        setPreferredSize(new Dimension(400, 400));
+        setPreferredSize(new Dimension(1000, 800));
         setBackground(Color.GRAY);
         timer=new Timer(1000/30, this);
         timer.start();
@@ -55,7 +55,7 @@ public class Board extends JPanel implements ActionListener {
         super.paintComponent(g);
         g.setColor(Color.BLACK);
         g.setFont(new Font("Arial", Font.BOLD, 36));
-        printSimpleString("SCORE: "+score, getWidth(), -400, 40, g);
+        printSimpleString("SCORE: "+score, getWidth(), -375, 40, g);
         snake.paint(g);
         food.paint(g);
     }

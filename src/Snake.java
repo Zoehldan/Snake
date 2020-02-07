@@ -11,8 +11,8 @@ public class Snake {
         head[1]=board.getHeight()/2;
         tail.add(head[0]-WIDTH);
         tail.add(head[1]);
-        tail.add(getNum(tail.size()-2)-10);
-        tail.add(getNum(tail.size()-2));
+            tail.add(getNum(tail.size()-2)-10);
+            tail.add(getNum(tail.size()-2));
     }
     public void move(Board board){
         if(!over){
